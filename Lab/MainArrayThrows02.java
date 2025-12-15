@@ -20,19 +20,19 @@ class Array{
 	}
 
 	public void dispArray() throws ArrayIndexOutOfBoundsException{
-		for(int i=0;i<n;i++)		//i<=n then shows ArrayIndexOutOf.. Exception
+		for(int i=0;i<n;i++)
 			System.out.println(a[i]);
 	}
 }
 	
-class MainArrayThrows{
-	public static void main(String args[]){
-		try{
+class MainArrayThrows02{
+	public static void main(String args[]) throws IOException, NumberFormatException, ArrayIndexOutOfBoundsException{
+		//try{
 			Array obj=new Array();
 			obj.readArrayElements();
 			obj.dispArray();
-		}
-		catch(IOException e1){
+		//}
+		/*catch(IOException e1){
 			System.out.println("Error IO: "+e1);
 		}
 		catch(NumberFormatException e2){
@@ -43,7 +43,7 @@ class MainArrayThrows{
 		}
 		catch(Exception e4){
 			System.out.println("Error "+e4);
-		}
+		}*/
 
 	}
 }
