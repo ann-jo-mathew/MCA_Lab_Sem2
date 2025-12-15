@@ -16,7 +16,7 @@ class Reverse{
 		if(temp==n)
 			System.out.println("The number is a Palindrome Number");
 		else
-			System.out.println("The number is not palindrome");
+			System.out.println("iThe number is not palindrome");
 	}
 	public int read(){
 		Scanner sc=new Scanner(System.in);
