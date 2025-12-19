@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>JavaScript Pop-Up Boxes</title>
+</head>
+<body>
+
+    <h2>JavaScript Pop-Up Boxes</h2>
+
+    <button onclick="showAlert()">Alert Box</button>
+    <button onclick="showConfirm()">Confirm Box</button>
+    <button onclick="showPrompt()">Prompt Box</button>
+
+    <script>
+        function showAlert() {
+            alert("This is an alert box!");
+        }
+
+        function showConfirm() {
+            if (confirm("Do you want to continue?")) {
+                alert("You clicked OK");
+            } else {
+                alert("You clicked Cancel");
+            }
+        }
+
+        function showPrompt() {
+            var name = prompt("Enter your name:");
+            if (name != null) {
+                alert("Hello " + name);
+            }
+        }
+    </script>
+
+</body>
+</html>

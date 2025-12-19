@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Quadratic Equation Solver</title>
+</head>
+<body>
+
+    <h2>Quadratic Equation Solver</h2>
+
+    <input type="number" id="a" placeholder="Enter a">
+    <input type="number" id="b" placeholder="Enter b">
+    <input type="number" id="c" placeholder="Enter c">
+    <button onclick="solveQuadratic()">Solve</button>
+
+    <p id="result"></p>
+
+    <script>
+        function solveQuadratic() {
+            var a = parseFloat(document.getElementById("a").value);
+            var b = parseFloat(document.getElementById("b").value);
+            var c = parseFloat(document.getElementById("c").value);
+
+            if (a === 0) {
+                document.getElementById("result").innerHTML = "Not a quadratic equation";
+                return;
+            }
+
+            var discriminant = b*b - 4*a*c;
+
+            if (discriminant > 0) {
+                var root1 = (-b + Math.sqrt(discriminant)) / (2*a);
+                var root2 = (-b - Math.sqrt(discriminant)) / (2*a);
+                document.getElementById("result").innerHTML = 
+                    "Roots are real and different: " + root1 + ", " + root2;
+            } else if (discriminant === 0) {
+                var root = -b / (2*a);
+                document.getElementById("result").innerHTML = 
+                    "Roots are real and equal: " + root;
+            } else {
+                var realPart = (-b / (2*a)).toFixed(2);
+                var imagPart = (Math.sqrt(-discriminant) / (2*a)).toFixed(2);
+                document.getElementById("result").innerHTML =
+                    "Roots are complex: " + realPart + " + " + imagPart + "i, " +
+                    realPart + " - " + imagPart + "i";
+            }
+        }
+    </script>
+
+</body>
+</html>
