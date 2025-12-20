@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pyramid Pattern</title>
+</head>
+<body>
+
+    <h2>Pyramid Pattern</h2>
+
+    <pre id="pyramid"></pre>
+
+    <script>
+        function createPyramid(rows) {
+            var output = "";
+
+            for (var i = 1; i <= rows; i++) {
+                // Add spaces
+                for (var j = 1; j <= rows - i; j++) {
+                    output += " ";
+                }
+                // Add stars
+                for (var k = 1; k <= (2*i - 1); k++) {
+                    output += "*";
+                }
+                output += "\n"; // New line
+            }
+
+            document.getElementById("pyramid").innerText = output;
+        }
+
+        createPyramid(5); // Create pyramid with 5 rows
+    </script>
+
+</body>
+</html>

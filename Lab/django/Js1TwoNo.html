@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Larger Number</title>
+</head>
+<body>
+
+    <h2>Find Larger Number</h2>
+
+    <input type="number" id="num1" placeholder="Enter first number">
+    <input type="number" id="num2" placeholder="Enter second number">
+    <br><br>
+    <button onclick="findLarger()">Find Larger</button>
+
+    <p id="result"></p>
+
+    <script>
+        function findLarger() {
+            var a = parseInt(document.getElementById("num1").value);
+            var b = parseInt(document.getElementById("num2").value);
+
+            if (a > b) {
+                document.getElementById("result").innerHTML = a + " is larger";
+            } else if (b > a) {
+                document.getElementById("result").innerHTML = b + " is larger";
+            } else {
+                document.getElementById("result").innerHTML = "Both numbers are equal";
+            }
+        }
+    </script>
+
+</body>
+</html>

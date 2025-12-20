@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Check Uppercase</title>
+</head>
+<body>
+
+    <h2>Check if First Character is Uppercase</h2>
+
+    <input type="text" id="text" placeholder="Enter a string">
+    <button onclick="checkUppercase()">Check</button>
+
+    <p id="result"></p>
+
+    <script>
+        function checkUppercase() {
+            var str = document.getElementById("text").value;
+
+            if (str.length === 0) {
+                document.getElementById("result").innerHTML = "Please enter a string";
+                return;
+            }
+
+            var firstChar = str.charAt(0);
+
+            if (firstChar === firstChar.toUpperCase() && firstChar !== firstChar.toLowerCase()) {
+                document.getElementById("result").innerHTML = "First character is uppercase";
+            } else {
+                document.getElementById("result").innerHTML = "First character is not uppercase";
+            }
+        }
+    </script>
+
+</body>
+</html>
