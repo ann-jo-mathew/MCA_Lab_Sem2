@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Zoom & Disable Right Click</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+            padding: 70px;
+        }
+        .img-box {
+            display: inline-block;
+            overflow: hidden;
+            margin: 0 auto;     /* center container */
+            /*border: 2px solid black; */
+        }
+
+        .img-box img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;     /* center container */
+            transition: transform 0.4s ease;
+        }
+
+        .img-box img:hover {
+            transform: scale(1.4);
+        }
+    </style>
+</head>
+<body>
+
+    <h3>Hover to Zoom Image</h3>
+
+    <div class="img-box">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoBuMvSuYezLE9rwI-zOJeIOmcIGfDPqOvFA&s" alt="Zoomable Image">
+    </div>
+
+    <script>
+        document.addEventListener("contextmenu", function(e) {
+            e.preventDefault();
+        });
+    </script>
+
+</body>
+</html>

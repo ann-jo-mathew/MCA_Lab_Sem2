@@ -1,5 +1,4 @@
 import java.util.*;
-
 class ArrayPass{  	
 	void printArray(int arr[]) { 		//Passing array as a parameter
 		System.out.println("Array elements:");
@@ -8,7 +7,6 @@ class ArrayPass{
        		}
 	System.out.println();
 	}
-
 	int[] createArray() {
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Enter size: ");
@@ -21,13 +19,11 @@ class ArrayPass{
 		return a;
 	}
 }
-
 class ArrayConstructor {		//Passing array to constructor
 	int arr[];
 	ArrayConstructor(int a[]) {
 		arr = a;
 	}
-
 	void show() {
 		System.out.println("Array from constructor:");
 		for (int x : arr) {
@@ -35,15 +31,11 @@ class ArrayConstructor {		//Passing array to constructor
 		}
 	}
 }
-
 public class Pgm5{
 	public static void main(String[] args) {
 	ArrayPass obj = new ArrayPass();
-	// Get array (returned from method)
 	int data[] = obj.createArray();
-	// Pass array as parameter
 	obj.printArray(data);
-	// Pass array to constructor
 	ArrayConstructor ac = new ArrayConstructor(data);
 	ac.show();
 	}
