@@ -2,38 +2,37 @@ import java.util.*;
 class Person {
     int age;
     String name;
-    Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-        System.out.println("Person constructor called");
+    Person(String name,int age) {
+        this.name=name;
+        this.age=age;
     }
     void display() {
-        System.out.println("Name: " + name);
-        System.out.println("Age: " + age);
+        System.out.println("Name:"+name);
+        System.out.println("Age:"+age);
     }
 }
 class Teacher extends Person {
     String subject;
-    Teacher(String name, int age, String subject) {     // Passing arguments to base class constructor using super
-        super(name, age);
-        this.subject = subject;
-        System.out.println("Teacher constructor called");
+    Teacher(String name,int age,String subject) {
+        super(name,age);        //passing arguments to base class constructor
+        this.subject=subject;
     }
     void display() {
-        super.display();    // calls base class method overriden in derived class
-        System.out.println("Subject: " + subject);
+        super.display();    //base class method overriden in derived class
+        System.out.println("Subject:"+subject);
     }
 }
-class SuperKeywordDemo {
+class Pgm3Super{
     public static void main(String args[]) {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Enter teacher name: ");
-        String name = sc.nextLine();
-        System.out.print("Enter teacher age: ");
+        Scanner sc=new Scanner(System.in);
+        System.out.print("Enter teacher name:");
+        String name=sc.nextLine();
+        System.out.print("Enter teacher age:");
         int age=sc.nextInt();
-        System.out.print("Enter subject: ");
-        String subject = sc.nextLine();
-        Teacher t = new Teacher(name, age, subject);
+        sc.nextLine();
+        System.out.print("Enter subject:");
+        String subject=sc.nextLine();
+        Teacher t=new Teacher(name,age,subject);
         System.out.println("\nTeacher Details:");
         t.display();
     }

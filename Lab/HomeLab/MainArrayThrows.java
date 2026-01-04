@@ -10,7 +10,7 @@ class Array{
 	
 	public void readArrayElements() throws IOException, NumberFormatException,ArrayIndexOutOfBoundsException{
 		DataInputStream din=new DataInputStream(System.in);
-		readSize();		//no need toreturn since n can be accesed inside the array
+		readSize();		//no need to return since n can be accesed inside the array
 		a=new int[n];
 		for(int i=0;i<n;i++){
 			System.out.println("Enter a["+i+"]");
