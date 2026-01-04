@@ -14,7 +14,7 @@ class MultiThread extends Thread{
 		}
 	}
 }
-class MMultiThread{
+class TP4Nby5{
 	public static void main(String args[]){
 		int key,a[],n,s,e;
 		MultiThread t[];
@@ -31,11 +31,7 @@ class MMultiThread{
 		key=sc.nextInt();
 		for(int i=0;i<n/5;i++){
 			System.out.println("Thread "+i);
-			//if(i==0)s=0;
-			//else s=e+1;
 			s=i*5;
-			//if(i==0)e=5-1;
-			//else e=(5*(i+1))-1;
 			e=s+4;
 			if(e>=n)
 				e=n-1;
