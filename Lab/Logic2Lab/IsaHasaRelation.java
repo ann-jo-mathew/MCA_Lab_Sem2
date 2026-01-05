@@ -16,8 +16,8 @@ class Person{      // Base class
 }
 class Student extends Person{      // Student ISA Person
     	int rollNo;
-	public Student(String name, int rollNo) {
-        	super(name);
+	public Student(String name, int rollNo,int id) {
+        	super(name,id);
        		this.rollNo=rollNo;
     	}
     	void dispS() {
@@ -40,7 +40,9 @@ public class IsaHasaRelation {
 		String a=sc.nextLine();
 		System.out.print("Enter Roll no: ");
 		int rn=sc.nextInt();
-		Student s = new Student(a,rn);
+		System.out.print("Enter Aadhaar no: ");
+		int id=sc.nextInt();
+		Student s=new Student(a,rn,id);
 		s.dispS();
 		System.out.println();
 		sc.nextLine();
