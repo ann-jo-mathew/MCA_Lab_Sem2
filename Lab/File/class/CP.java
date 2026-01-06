@@ -35,7 +35,7 @@ class CP{
 			obj.copyFile(args[0],args[1]);
 		}
 		else{
-			System.out.println("Usage: java cp sfn sfn");	//sourse destination
+			System.out.println("Usage: java cp sfn dfn");	//sourse destination
 		}
 	}
 }
