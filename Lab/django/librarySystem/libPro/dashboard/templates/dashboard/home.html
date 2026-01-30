@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+</head>
+<body>
+    <h1>Library Dashboard</h1>
+    <p>Welcome {{ request.user.username }}!</p>
+
+    <a href="{% url 'logout' %}">Logout</a>
+    <h2>Manage Books</h2>
+    <ul>
+        <li><a href="{% url 'book_list' %}">View All Books</a></li>
+    </ul>
+</body>
+</html>
