@@ -1,1 +1,5 @@
 *.class
+/Lab/DB/FirstApp/nbproject/private/
+/Lab/DB/FirstApp/build/
+/Lab/DB/EmpInsert/nbproject/private/
+/Lab/DB/EmpInsert/build/
