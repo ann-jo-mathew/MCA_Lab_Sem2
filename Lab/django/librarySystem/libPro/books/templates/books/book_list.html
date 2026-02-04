@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Books</title>
+</head>
+<body>
+    <h2>Available Books</h2>
+
+    <ul>
+        {% for book in books %}
+            <li>
+                <a href="{% url 'book_detail' book.id %}">
+                    {{ book.title }} by {{ book.author }}
+                </a>
+            </li>
+        {% empty %}
+            <li>No books available</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'dashboard' %}">Back to Dashboard</a>
+</body>
+</html>
