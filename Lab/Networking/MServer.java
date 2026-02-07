@@ -1,3 +1,5 @@
+//MultiServer
+
 import java.io.*;
 import java.net.*;
 class OneClient extends Thread{
@@ -35,9 +37,9 @@ class MServer{
 			ss=new ServerSocket(1234);
 			for(;;){
 				System.out.println("Server Waiting..");
-				Socket as=ss.accept();
+				Socket as=ss.accept();		//obj  declared
 				System.out.println("Client Connected");
-				OneClient obj=new OneClient(as);
+				OneClient obj=new OneClient(as);	//obj declared
 				obj.start();
 			}
 		}
