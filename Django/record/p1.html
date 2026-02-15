@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Responsive Semantic Webpage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background: #333;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        nav {
+            background: #444;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            padding: 10px 15px;
+            text-decoration: none;
+        }
+
+        nav a:hover {
+            background: #555;
+        }
+
+        main {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+            flex: 1;
+        }
+
+        article {
+            flex: 3;
+            background: #f4f4f4;
+            padding: 15px;
+        }
+
+        aside {
+            flex: 1;
+            background: #ddd;
+            padding: 15px;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            margin-top: auto;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            main {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>My Responsive Webpage</h1>
+        <p>Using HTML5 Semantic Elements</p>
+    </header>
+
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">About</a>
+        <a href="#">Services</a>
+        <a href="#">Contact</a>
+    </nav>
+
+    <main>
+        <article>
+            <h2>Main Article</h2>
+            <p>
+                This is the main content section of the webpage. It uses semantic 
+                HTML5 elements like header, nav, main, article, aside, and footer.
+            </p>
+            <p>
+                Resize the browser window to see the responsive effect.
+            </p>
+        </article>
+
+        <aside>
+            <h3>Sidebar</h3>
+            <p>This is the sidebar content.</p>
+        </aside>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Simple Responsive Page</p>
+    </footer>
+
+</body>
+</html>
