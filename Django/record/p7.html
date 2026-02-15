@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Search and Filter</title>
+
+<style>
+    body {
+        font-family: Arial;
+        padding: 30px;
+    }
+
+    input, select {
+        padding: 8px;
+        margin-right: 10px;
+        margin-bottom: 15px;
+    }
+
+    .item {
+        padding: 8px;
+        background: #f4f4f4;
+        margin-bottom: 5px;
+        border-radius: 4px;
+    }
+</style>
+
+<script>
+function filterData() {
+    let searchText = document.getElementById("search").value.toLowerCase();
+    let category = document.getElementById("category").value;
+    let items = document.getElementsByClassName("item");
+
+    for (let i = 0; i < items.length; i++) {
+        let name = items[i].getAttribute("data-name").toLowerCase();
+        let type = items[i].getAttribute("data-category");
+
+        let matchSearch = name.includes(searchText);
+        let matchCategory = (category === "all" || type === category);
+
+        if (matchSearch && matchCategory) {
+            items[i].style.display = "block";
+        } else {
+            items[i].style.display = "none";
+        }
+    }
+}
+</script>
+
+</head>
+<body>
+
+<h2>Search and Filter Products</h2>
+
+<input type="text" id="search" placeholder="Search..." onkeyup="filterData()">
+
+<select id="category" onchange="filterData()">
+    <option value="all">All</option>
+    <option value="electronics">Electronics</option>
+    <option value="accessories">Accessories</option>
+</select>
+
+<div class="item" data-name="Laptop" data-category="electronics">Laptop</div>
+<div class="item" data-name="Mobile" data-category="electronics">Mobile</div>
+<div class="item" data-name="Keyboard" data-category="accessories">Keyboard</div>
+<div class="item" data-name="Mouse" data-category="accessories">Mouse</div>
+
+</body>
+</html>

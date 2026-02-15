@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Landing Page</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+    }
+
+    /* ---------- HEADER ---------- */
+    header {
+        background: #4f46e5;
+        color: white;
+        padding: 20px;
+        text-align: center;
+    }
+
+    nav {
+        margin-top: 10px;
+    }
+
+    nav a {
+        color: white;
+        margin: 0 10px;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    /* ---------- HERO SECTION ---------- */
+    .hero {
+        background: #eef2ff;
+        padding: 60px 20px;
+        text-align: center;
+    }
+
+    .hero h1 {
+        margin-bottom: 15px;
+    }
+
+    .hero button {
+        padding: 12px 25px;
+        border: none;
+        background: #4f46e5;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    /* ---------- FEATURES ---------- */
+    .features {
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    .feature-box {
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+        flex-wrap: wrap;
+        margin-top: 20px;
+    }
+
+    .feature {
+        background: #f4f4f4;
+        padding: 20px;
+        width: 250px;
+        border-radius: 8px;
+    }
+
+    /* ---------- ABOUT ---------- */
+    .about {
+        padding: 40px 20px;
+        background: #f8fafc;
+        text-align: center;
+    }
+
+    /* ---------- CONTACT ---------- */
+    .contact {
+        padding: 40px 20px;
+        text-align: center;
+    }
+
+    input, textarea {
+        width: 250px;
+        padding: 10px;
+        margin: 8px 0;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+        background: #1f2937;
+        color: white;
+        text-align: center;
+        padding: 15px;
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 768px) {
+        nav {
+            display: flex;
+            flex-direction: column;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>My Landing Page</h1>
+    <nav>
+        <a href="#">Home</a>
+        <a href="#">Features</a>
+        <a href="#">About</a>
+        <a href="#">Contact</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1>Welcome to Our Website</h1>
+    <p>Simple landing page using HTML and CSS</p>
+    <button>Get Started</button>
+</section>
+
+<section class="features">
+    <h2>Features</h2>
+    <div class="feature-box">
+        <div class="feature">Fast</div>
+        <div class="feature">Responsive</div>
+        <div class="feature">Easy to Use</div>
+    </div>
+</section>
+
+<section class="about">
+    <h2>About Us</h2>
+    <p>
+        We create simple and beginner-friendly web designs using
+        HTML and CSS.
+    </p>
+</section>
+
+<section class="contact">
+    <h2>Contact Us</h2>
+    <form>
+        <input type="text" placeholder="Your Name"><br>
+        <input type="email" placeholder="Your Email"><br>
+        <textarea placeholder="Message"></textarea><br>
+        <button>Send</button>
+    </form>
+</section>
+
+<footer>
+    <p>&copy; 2026 Landing Page</p>
+</footer>
+
+</body>
+</html>

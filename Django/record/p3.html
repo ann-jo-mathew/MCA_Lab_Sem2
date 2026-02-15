@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CSS Flexbox Example</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f1f5f9;
+        padding: 20px;
+    }
+
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    /* Flex container */
+    .flex-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    /* Flex items */
+    .box {
+        flex: 1;
+        min-width: 200px;
+        background: #6366f1;
+        color: white;
+        padding: 30px;
+        text-align: center;
+        border-radius: 8px;
+    }
+
+</style>
+</head>
+
+<body>
+
+<h1>CSS Flexbox Layout</h1>
+
+<div class="flex-container">
+    <div class="box">Box 1</div>
+    <div class="box">Box 2</div>
+    <div class="box">Box 3</div>
+</div>
+
+</body>
+</html>
