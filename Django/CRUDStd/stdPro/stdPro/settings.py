@@ -73,7 +73,7 @@ WSGI_APPLICATION = 'stdPro.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'stdDB',#database name thats creted in mysql
@@ -82,7 +82,16 @@ DATABASES = {
         'HOST':'localhost',
         'PORT':'3306',
     }
+}"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'localhost:1521/FREEPDB1',   # change to XEPDB1 / ORCLPDB1 as per lab
+        'USER': 'ann',
+        'PASSWORD': 'mca',
+    }
 }
+
 
 """DATABASES = {
     'default': {
