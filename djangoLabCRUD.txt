@@ -1,0 +1,244 @@
+========================================
+DJANGO CRUD WITH ORACLE (WITH FORMS vs WITHOUT FORMS)
+========================================
+
+-----------------------
+REQUIRED COMMANDS
+-----------------------
+pip install django oracledb
+django-admin startproject crudproj .
+python manage.py startapp students
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+
+
+========================
+COMMON FILES (SAME FOR BOTH)
+========================
+
+--- crudproj/settings.py (only important parts) ---
+INSTALLED_APPS = [
+    ...
+    'students',
+]
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.oracle',
+        'NAME': 'localhost:1521/FREEPDB1',   # change to XEPDB1 / ORCLPDB1 as per lab
+        'USER': 'your_user',
+        'PASSWORD': 'your_password',
+    }
+}
+
+
+--- students/models.py ---
+from django.db import models
+
+class Student(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    email = models.EmailField()
+
+    def __str__(self):
+        return self.name
+
+
+--- crudproj/urls.py ---
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('students.urls')),
+]
+
+
+--- students/urls.py ---
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home, name='home'),
+    path('add/', views.addstudent, name='addstudent'),
+    path('edit/<int:pk>/', views.editstudent, name='editstudent'),
+    path('delete/<int:pk>/', views.deletestudent, name='deletestudent'),
+]
+
+
+--- templates/index.html (LIST / READ) ---
+<h2>Students</h2>
+<a href="{% url 'addstudent' %}">+ Add</a>
+<hr>
+
+<table border="1" cellpadding="8">
+  <tr>
+    <th>ID</th><th>Name</th><th>Age</th><th>Email</th><th>Actions</th>
+  </tr>
+
+  {% for s in students %}
+  <tr>
+    <td>{{ s.id }}</td>
+    <td>{{ s.name }}</td>
+    <td>{{ s.age }}</td>
+    <td>{{ s.email }}</td>
+    <td>
+      <a href="{% url 'editstudent' s.id %}">Edit</a> |
+      <a href="{% url 'deletestudent' s.id %}">Delete</a>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+
+=====================================================
+VERSION A) WITH FORMS.py (ModelForm) ✅ Best practice
+=====================================================
+
+--- students/forms.py ---
+from django import forms
+from .models import Student
+
+class StudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = ['name', 'age', 'email']
+
+
+--- students/views.py (WITH FORMS) ---
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Student
+from .forms import StudentForm
+
+def home(request):
+    students = Student.objects.all()
+    return render(request, 'index.html', {'students': students})
+
+def addstudent(request):
+    form = StudentForm(request.POST or None)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect('home')
+    return render(request, 'student_form.html', {'form': form, 'title': 'Add Student'})
+
+def editstudent(request, pk):
+    student = get_object_or_404(Student, id=pk)
+    form = StudentForm(request.POST or None, instance=student)
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        return redirect('home')
+    return render(request, 'student_form.html', {'form': form, 'title': 'Edit Student'})
+
+def deletestudent(request, pk):
+    student = get_object_or_404(Student, id=pk)
+    if request.method == "POST":
+        student.delete()
+        return redirect('home')
+    return render(request, 'student_delete.html', {'student': student})
+
+
+--- templates/student_form.html ---
+<h2>{{ title }}</h2>
+
+<form method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Save</button>
+</form>
+
+<a href="{% url 'home' %}">Back</a>
+
+
+--- templates/student_delete.html ---
+<h2>Delete Student</h2>
+<p>Delete {{ student.name }}?</p>
+
+<form method="POST">
+  {% csrf_token %}
+  <button type="submit">Yes Delete</button>
+</form>
+
+<a href="{% url 'home' %}">Cancel</a>
+
+
+
+=====================================================
+VERSION B) WITHOUT FORMS.py (Manual request.POST)
+=====================================================
+
+--- students/views.py (WITHOUT FORMS) ---
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Student
+
+def home(request):
+    students = Student.objects.all()
+    return render(request, 'index.html', {'students': students})
+
+def addstudent(request):
+    if request.method == "POST":
+        name = request.POST.get('name')
+        age = request.POST.get('age')
+        email = request.POST.get('email')
+        Student.objects.create(name=name, age=age, email=email)
+        return redirect('home')
+    return render(request, 'student_add.html')
+
+def editstudent(request, pk):
+    student = get_object_or_404(Student, id=pk)
+    if request.method == "POST":
+        student.name = request.POST.get('name')
+        student.age = request.POST.get('age')
+        student.email = request.POST.get('email')
+        student.save()
+        return redirect('home')
+    return render(request, 'student_edit.html', {'student': student})
+
+def deletestudent(request, pk):
+    student = get_object_or_404(Student, id=pk)
+    if request.method == "POST":
+        student.delete()
+        return redirect('home')
+    return render(request, 'student_delete.html', {'student': student})
+
+
+--- templates/student_add.html ---
+<h2>Add Student</h2>
+
+<form method="POST">
+  {% csrf_token %}
+  <label>Name:</label>
+  <input type="text" name="name" required><br><br>
+
+  <label>Age:</label>
+  <input type="number" name="age" required><br><br>
+
+  <label>Email:</label>
+  <input type="email" name="email" required><br><br>
+
+  <button type="submit">Save</button>
+</form>
+
+<a href="{% url 'home' %}">Back</a>
+
+
+--- templates/student_edit.html ---
+<h2>Edit Student</h2>
+
+<form method="POST">
+  {% csrf_token %}
+  <label>Name:</label>
+  <input type="text" name="name" value="{{ student.name }}" required><br><br>
+
+  <label>Age:</label>
+  <input type="number" name="age" value="{{ student.age }}" required><br><br>
+
+  <label>Email:</label>
+  <input type="email" name="email" value="{{ student.email }}" required><br><br>
+
+  <button type="submit">Update</button>
+</form>
+
+<a href="{% url 'home' %}">Back</a>
+
+========================================
