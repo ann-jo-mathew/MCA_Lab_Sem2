@@ -1,6 +1,6 @@
 import java.net.*;
 import java.io.*;
-class MsgClient{
+class CtoC2{
 	public static void main(String args[]){
 		try{
 			Socket cs=new Socket("localhost",1234);
@@ -9,11 +9,12 @@ class MsgClient{
 			DataInputStream kin=new DataInputStream(System.in);
 			String str;
 			while(true){
-				str=sin.readUTF();
+                str=sin.readUTF();
 				if(str.equals("q"))
 					break;
-				System.out.println("Server: "+str);
-				System.out.print("Enter message/ q to quit: ");
+				System.out.println("Client 1: "+str);
+				
+				System.out.print("Me: ");
 				str=kin.readLine();
 				sout.writeUTF(str);
 				if(str.equals("q"))

@@ -8,17 +8,17 @@ class MsgServer{
 			Socket cs=ss.accept();
 			DataInputStream sin=new DataInputStream(cs.getInputStream());	
 			DataOutputStream sout=new DataOutputStream(cs.getOutputStream());
-			DataOutputStream kin=new DataInputStream(System.in);
+			DataInputStream kin=new DataInputStream(System.in);
 			String str;
 			while(true){
 				System.out.print("*Enter Message/type q to quit: ");
 				str=kin.readLine();
 				sout.writeUTF(str);
-				if(str.equals()=="q")
+				if(str.equals("q"))
 					break;
 				str=sin.readUTF();
 				System.out.println("Client: "+str);
-				if(str.equals()=="q")
+				if(str.equals("q"))
 					break;
 				}
 		}
