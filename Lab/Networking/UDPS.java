@@ -9,7 +9,7 @@ class UDPS{
 			byte[] buffer=new byte[1000];
 			dp=new DatagramPacket(buffer,buffer.length);
 			ds.receive(dp);
-			System.out .println("From client: "+(new String(dp.getData())).trim());
+			System.out.println("From client: "+(new String(dp.getData())).trim());
 			System.out.println("Client port:"+dp.getPort());
 			reply=new DatagramPacket("From Server:".getBytes(),"From Server".length(),dp.getAddress(),dp.getPort());
 			ds.send(reply);

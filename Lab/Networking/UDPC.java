@@ -8,8 +8,10 @@ class UDPC{
 		try{
 			ds=new DatagramSocket();
 			byte[] m="Bye".getBytes();
-			shost=InetAddress.getByName("192.168.17.46");
-			dp=new DatagramPacket(m,3,shost,1234);			\\3-length of bye 
+			shost=InetAddress.getByName("localhost");
+			//shost=InetAddress.getByName("192.168.17.46");
+			//shost=InetAddress.getLocalHost();
+			dp=new DatagramPacket(m,3,shost,1234);			//3-length of bye 
 			ds.send(dp);
 			byte[] buffer=new byte[1000];
 			reply=new DatagramPacket(buffer,buffer.length);
