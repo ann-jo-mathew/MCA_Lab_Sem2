@@ -4,9 +4,8 @@ class OClient extends Thread{
 	DataInputStream sin;
 	DataOutputStream sout;
 	String str;
-	public OClient(Socket s){
+	public OClient(Socket cs){
 		try{
-			Socket cs=s;
 			sin=new DataInputStream(cs.getInputStream());
 			sout=new DataOutputStream(cs.getOutputStream());
 		}
