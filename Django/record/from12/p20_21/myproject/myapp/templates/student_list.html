@@ -1,0 +1,25 @@
+<!--<h2>Students</h2>
+  <a href="{% url 'student_create' %}">+ Add Student</a>
+  <hr>
+    <table border="1" cellpadding="8">
+      <tr><th>Name</th><th>Age</th><th>Email</th><th>Actions</th></tr>
+      {% for s in students %}
+      <tr><td>{{ s.name }}</td><td>{{ s.age }}</td><td>{{ s.email }}</td>
+        <td>
+          <a href="{% url 'student_update' s.id %}">Edit</a> |
+          <a href="{% url 'student_delete' s.id %}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+-->
+    <h2>Student List</h2>
+    {% for student in students %}
+        <p>
+            Name: {{ student.name }} |
+            <!-- Age: {{ student.age }} |
+            Email: {{ student.email }} -->
+            <a href="{% url 'student_detail' student.id %}">View</a>
+        </p>
+    {% endfor %}
+

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Suggestion Form (Flask + AJAX)</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      color:#1f2937;
+    }
+
+    .box{
+      width:100%;
+      max-width: 560px;
+      background:#fff;
+      border-radius:14px;
+      padding:22px;
+      border:1px solid #e5e7eb;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+    }
+
+    h2{
+      margin:0 0 6px;
+      font-size:22px;
+    }
+
+    .sub{
+      margin:0 0 18px;
+      color:#6b7280;
+      font-size:14px;
+    }
+
+    form{ margin-top: 10px; }
+
+    .field{ margin-bottom:14px; }
+
+    label{
+      display:block;
+      font-size:13px;
+      font-weight:600;
+      margin-bottom:6px;
+      color:#374151;
+    }
+
+    input, textarea{
+      width:100%;
+      padding:11px 12px;
+      border-radius:10px;
+      border:1px solid #d1d5db;
+      outline:none;
+      background:#fff;
+      font-size:14px;
+      transition: 0.15s ease;
+    }
+
+    input:focus, textarea:focus{
+      border-color:#2563eb;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.15);
+    }
+
+    textarea{ resize: vertical; min-height:110px; }
+
+    .actions{
+      display:flex;
+      gap:10px;
+      justify-content:flex-end;
+      margin-top:10px;
+    }
+
+    button{
+      padding:10px 14px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:600;
+      background:#2563eb;
+      color:#fff;
+      transition: 0.15s ease;
+    }
+
+    button:hover{ filter: brightness(0.95); }
+    button:active{ transform: translateY(1px); }
+
+    /* Status message */
+    #status{
+      margin-top:12px;
+      font-size:14px;
+    }
+
+    .ok{
+      color:#065f46;
+      background:#ecfdf5;
+      border:1px solid #a7f3d0;
+      padding:10px 12px;
+      border-radius:10px;
+    }
+
+    .err{
+      color:#991b1b;
+      background:#fef2f2;
+      border:1px solid #fecaca;
+      padding:10px 12px;
+      border-radius:10px;
+    }
+
+    .list{
+      margin-top:22px;
+      padding-top:18px;
+      border-top:1px solid #e5e7eb;
+    }
+
+    .list h3{
+      margin:0 0 12px;
+      font-size:16px;
+    }
+
+    .item{
+      background:#f9fafb;
+      border:1px solid #e5e7eb;
+      padding:12px;
+      border-radius:12px;
+      margin:10px 0;
+    }
+
+    .item strong{ display:block; margin-bottom:4px; }
+    .item p{ margin:8px 0 0; color:#374151; }
+    small{ color:#6b7280; }
+  </style>
+</head>
+
+<body>
+  <div class="box">
+    <h2>Suggestion Form</h2>
+    <p class="sub">Send your suggestion. It will appear below after submitting.</p>
+
+    <form id="suggestionForm">
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" type="text" placeholder="Enter your name" required />
+      </div>
+
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" placeholder="Enter your email" required />
+      </div>
+
+      <div class="field">
+        <label for="message">Suggestion</label>
+        <textarea id="message" rows="4" placeholder="Write your suggestion..." required></textarea>
+      </div>
+
+      <div class="actions">
+        <button type="submit">Submit</button>
+      </div>
+    </form>
+
+    <div id="status"></div>
+
+    <div class="list">
+      <h3>Submitted Suggestions</h3>
+      <div id="suggestions"></div>
+    </div>
+  </div>
+
+  <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

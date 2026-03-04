@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Blog - Post List</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 40px;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+
+        .post-card {
+            border-bottom: 1px solid #eee;
+            padding: 20px 0;
+        }
+
+        .post-card:last-child {
+            border-bottom: none;
+        }
+
+        .post-title {
+            font-size: 1.5em;
+            margin: 0 0 10px 0;
+            color: #007bff;
+            text-decoration: none;
+            display: block;
+        }
+
+        .post-meta {
+            font-size: 0.9em;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            color: white;
+            display: inline-block;
+            transition: background 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #007bff;
+        }
+
+        .btn-primary:hover {
+            background: #0056b3;
+        }
+
+        .auth-links {
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>The Blog</h1>
+            <div class="auth-links">
+                {% if user.is_authenticated %}
+                <span>Welcome, <strong>{{ user.username }}</strong></span> |
+                <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a href="{% url 'login' %}">Login</a>
+                {% endif %}
+            </div>
+        </div>
+
+        {% if user.is_authenticated %}
+        <div style="margin-bottom: 20px;">
+            <a href="{% url 'post_create' %}" class="btn btn-primary">+ Create New Post</a>
+        </div>
+        {% endif %}
+
+        {% for post in posts %}
+        <div class="post-card">
+            <a href="{% url 'post_detail' post.id %}" class="post-title">{{ post.title }}</a>
+            <div class="post-meta">
+                By {{ post.author.username }} on {{ post.created_at|date:"F d, Y" }}
+            </div>
+            <p>{{ post.content|truncatewords:30 }}</p>
+        </div>
+        {% empty %}
+        <p>No blog posts yet.</p>
+        {% endfor %}
+    </div>
+</body>
+
+</html>

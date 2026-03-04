@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Session Home</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background: #f3f4f6; }
+        .card { max-width: 700px; margin: 0 auto; background: white; padding: 20px; border-radius: 10px; }
+        .dark { background: #1f2937; color: #f9fafb; }
+        input, select, button { padding: 8px; margin: 5px 0; }
+        .btn { background: #0f766e; color: white; border: none; border-radius: 5px; }
+        a { text-decoration: none; }
+    </style>
+</head>
+<body>
+    <div class="card {% if theme == 'dark' %}dark{% endif %}">
+        <h2>Visit Tracker</h2>
+        <p><b>Session Name:</b> {{ username }}</p>
+        <p><b>Visit Count:</b> {{ visit_count }}</p>
+        <p><b>Last Visited:</b> {{ last_visited|default:'First visit' }}</p>
+        <p><b>Preferred Theme:</b> {{ theme }}</p>
+
+        {% if request.user.is_authenticated %}
+            <p><b>Logged in as:</b> {{ request.user.username }}</p>
+            <a href="{% url 'logout' %}"><button class="btn">Logout</button></a>
+        {% else %}
+            <a href="{% url 'login' %}"><button class="btn">Login</button></a>
+        {% endif %}
+
+        <hr>
+        <form method="post" action="{% url 'set_name' %}">
+            {% csrf_token %}
+            <label>Set Session Name</label><br>
+            <input type="text" name="username" placeholder="Enter name" required>
+            <button class="btn" type="submit">Save Name</button>
+        </form>
+
+        <form method="post" action="{% url 'set_theme' %}">
+            {% csrf_token %}
+            <label>Set Preferred Theme</label><br>
+            <select name="theme">
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+            <button class="btn" type="submit">Save Theme</button>
+        </form>
+
+        <form method="post" action="{% url 'clear_session' %}">
+            {% csrf_token %}
+            <button class="btn" type="submit">Clear Session</button>
+        </form>
+
+        <hr>
+        <h3>Sample Notes</h3>
+        {% for note in notes %}
+            <p><b>{{ note.title }}</b>: {{ note.message }}</p>
+        {% empty %}
+            <p>No sample data yet. Run seed command.</p>
+        {% endfor %}
+    </div>
+</body>
+</html>

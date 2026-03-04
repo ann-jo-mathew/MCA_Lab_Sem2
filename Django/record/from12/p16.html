@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bootstrap + Material Design UI</title>
+
+  <!-- Bootstrap 5 CSS (layout + grid) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Material Symbols (optional icons) -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+  <style>
+    body { background: #f5f7fb; }
+    .topbar {
+      background: white;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .hero {
+      background: linear-gradient(135deg, #0d6efd, #6f42c1);
+      color: white;
+      border-radius: 18px;
+    }
+    .section-title { font-weight: 700; }
+    .muted { color: #6c757d; }
+    .material-symbols-outlined { vertical-align: middle; font-size: 20px; }
+  </style>
+
+  <!-- Material Web Components (M3) -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@material/web/all.js"></script>
+</head>
+
+<body>
+
+  <!-- Topbar (Bootstrap layout) -->
+  <div class="topbar">
+    <div class="container py-3 d-flex align-items-center justify-content-between">
+      <div class="d-flex align-items-center gap-2">
+        <span class="material-symbols-outlined">dashboard</span>
+        <strong>Pro UI</strong>
+      </div>
+
+      <div class="d-flex align-items-center gap-2">
+        <!-- Material buttons -->
+        <md-filled-tonal-button>Dashboard</md-filled-tonal-button>
+        <md-outlined-button>Settings</md-outlined-button>
+        <md-filled-button>Sign In</md-filled-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container py-4">
+
+    <!-- Hero (Bootstrap grid + spacing) -->
+    <div class="hero p-4 p-md-5 mb-4 shadow-sm">
+      <div class="row align-items-center g-4">
+        <div class="col-12 col-md-7">
+          <h2 class="mb-2">Bootstrap Grid + Material Design Components</h2>
+          <p class="mb-0">
+            Professional layout using Bootstrap, and clean Material Design cards & buttons for UI.
+          </p>
+        </div>
+        <div class="col-12 col-md-5 text-md-end">
+          <md-filled-button>
+            <span class="material-symbols-outlined" slot="icon">rocket_launch</span>
+            Get Started
+          </md-filled-button>
+          <md-outlined-button class="ms-2">Documentation</md-outlined-button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cards Section -->
+    <div class="d-flex align-items-end justify-content-between mb-3">
+      <div>
+        <div class="section-title h5 mb-1">Quick Actions</div>
+        <div class="muted">Material cards inside a Bootstrap responsive grid</div>
+      </div>
+      <md-outlined-button>
+        <span class="material-symbols-outlined" slot="icon">filter_list</span>
+        Filter
+      </md-outlined-button>
+    </div>
+
+    <!-- Bootstrap grid holding Material cards -->
+    <div class="row g-3">
+      <div class="col-12 col-md-6 col-lg-4">
+        <md-elevated-card style="padding:16px; border-radius:16px;">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="material-symbols-outlined">person</span>
+            <strong>Profile</strong>
+          </div>
+          <p class="muted mb-3">Update your personal details and preferences.</p>
+          <div class="d-flex gap-2">
+            <md-filled-button>Open</md-filled-button>
+            <md-outlined-button>Edit</md-outlined-button>
+          </div>
+        </md-elevated-card>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <md-elevated-card style="padding:16px; border-radius:16px;">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="material-symbols-outlined">analytics</span>
+            <strong>Reports</strong>
+          </div>
+          <p class="muted mb-3">View weekly progress and performance metrics.</p>
+          <div class="d-flex gap-2">
+            <md-filled-button>View</md-filled-button>
+            <md-outlined-button>Export</md-outlined-button>
+          </div>
+        </md-elevated-card>
+      </div>
+
+      <div class="col-12 col-md-6 col-lg-4">
+        <md-elevated-card style="padding:16px; border-radius:16px;">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <span class="material-symbols-outlined">support_agent</span>
+            <strong>Support</strong>
+          </div>
+          <p class="muted mb-3">Get help, raise a ticket, or contact support.</p>
+          <div class="d-flex gap-2">
+            <md-filled-button>Contact</md-filled-button>
+            <md-outlined-button>FAQ</md-outlined-button>
+          </div>
+        </md-elevated-card>
+      </div>
+    </div>
+
+    <!-- Bootstrap + Material form area -->
+    <div class="row g-3 mt-4">
+      <div class="col-12 col-lg-7">
+        <md-elevated-card style="padding:16px; border-radius:16px;">
+          <div class="section-title h6 mb-3">Quick Message</div>
+
+          <!-- Material text fields -->
+          <div class="row g-3">
+            <div class="col-12 col-md-6">
+              <md-outlined-text-field label="Name" style="width:100%;"></md-outlined-text-field>
+            </div>
+            <div class="col-12 col-md-6">
+              <md-outlined-text-field label="Email" type="email" style="width:100%;"></md-outlined-text-field>
+            </div>
+            <div class="col-12">
+              <md-outlined-text-field
+                label="Message"
+                type="text"
+                style="width:100%;"
+                textarea
+                rows="4"></md-outlined-text-field>
+            </div>
+            <div class="col-12 d-flex justify-content-end gap-2">
+              <md-outlined-button>Clear</md-outlined-button>
+              <md-filled-button>Send</md-filled-button>
+            </div>
+          </div>
+        </md-elevated-card>
+      </div>
+
+      <div class="col-12 col-lg-5">
+        <md-elevated-card style="padding:16px; border-radius:16px;">
+          <div class="section-title h6 mb-2">Status</div>
+          <p class="muted mb-3">All systems operational. No active incidents.</p>
+
+          <div class="d-flex align-items-center justify-content-between py-2 border-top">
+            <span>API</span>
+            <span class="text-success fw-semibold">Online</span>
+          </div>
+          <div class="d-flex align-items-center justify-content-between py-2 border-top">
+            <span>Database</span>
+            <span class="text-success fw-semibold">Online</span>
+          </div>
+          <div class="d-flex align-items-center justify-content-between py-2 border-top">
+            <span>Auth</span>
+            <span class="text-success fw-semibold">Online</span>
+          </div>
+        </md-elevated-card>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bootstrap JS (optional, if you use dropdowns/modals etc.) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

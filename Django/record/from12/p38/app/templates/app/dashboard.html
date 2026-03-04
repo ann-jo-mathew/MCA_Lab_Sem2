@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .box { max-width: 400px; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Dashboard</h2>
+        <p>Welcome, <b>{{ request.user.username }}</b></p>
+        <p><a href="{% url 'logout' %}">Logout</a></p>
+    </div>
+</body>
+</html>

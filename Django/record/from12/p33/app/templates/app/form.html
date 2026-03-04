@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Submit Feedback</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 40px;
+            background: #fdfdfd;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 100px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            text-decoration: none;
+            border-radius: 4px;
+            color: white;
+            cursor: pointer;
+            border: none;
+            display: block;
+            width: 100%;
+            background: #007bff;
+            font-size: 1em;
+        }
+
+        .error {
+            color: #dc3545;
+            background: #f8d7da;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+
+        .success {
+            color: #155724;
+            background: #d4edda;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Share Your Feedback</h1>
+
+        {% if errors %}
+        <div class="error">
+            <ul>
+                {% for field, error in errors.items %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if success %}
+        <div class="success">
+            Thank you for your feedback! It has been submitted successfully.
+        </div>
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" name="name" value="{{ data.name|default:'' }}" required>
+            </div>
+            <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" value="{{ data.email|default:'' }}" required>
+            </div>
+            <div class="form-group">
+                <label>Rating (1-5)</label>
+                <select name="rating" required>
+                    <option value="" disabled selected>Select a rating</option>
+                    {% for i in "12345" %}
+                    <option value="{{ i }}" {% if data.rating == i %}selected{% endif %}>{{ i }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Message (Min 10 characters)</label>
+                <textarea name="message" required>{{ data.message|default:'' }}</textarea>
+            </div>
+            <button type="submit" class="btn">Submit Feedback</button>
+        </form>
+        <p style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'feedback_list' %}" style="color: #6c757d; font-size: 0.9em;">View Feedback (Admin Only)</a>
+        </p>
+    </div>
+</body>
+
+</html>

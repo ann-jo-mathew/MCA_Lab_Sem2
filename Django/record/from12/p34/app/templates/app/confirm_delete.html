@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Delete Post</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 40px;
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        h1 {
+            color: #dc3545;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 6px;
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: inline-block;
+            font-size: 1em;
+        }
+
+        .btn-delete {
+            background: #dc3545;
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Delete Post</h1>
+        <p>Are you sure you want to delete "<strong>{{ post.title }}</strong>"?</p>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-delete">Yes, Delete Forever</button>
+            <a href="{% url 'post_detail' post.id %}" class="btn btn-cancel">Cancel</a>
+        </form>
+    </div>
+</body>
+
+</html>

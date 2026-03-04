@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Calculator</title>
+  <style>
+    :root{
+      --bg1:#0f172a;
+      --bg2:#111827;
+      --card:#0b1220cc;
+      --stroke:#26324a;
+      --text:#e5e7eb;
+      --muted:#9ca3af;
+      --op:#60a5fa;
+      --eq:#22c55e;
+      --danger:#ef4444;
+      --shadow: 0 18px 60px rgba(0,0,0,.45);
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      min-height:100vh;
+      display:grid;
+      place-items:center;
+      background:
+        radial-gradient(900px 600px at 20% 20%, rgba(96,165,250,.25), transparent 55%),
+        radial-gradient(800px 500px at 80% 30%, rgba(34,197,94,.18), transparent 55%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      padding:24px;
+    }
+    .calc{
+      width:min(380px, 100%);
+      background: var(--card);
+      border: 1px solid rgba(38,50,74,.9);
+      box-shadow: var(--shadow);
+      border-radius: var(--radius);
+      overflow:hidden;
+      backdrop-filter: blur(10px);
+    }
+    .top{
+      padding:18px;
+      border-bottom: 1px solid rgba(38,50,74,.7);
+    }
+    .brand{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:10px;
+      color:var(--muted);
+      font-size:12px;
+    }
+    .display{
+      background: rgba(10,16,28,.85);
+      border: 1px solid rgba(38,50,74,.9);
+      border-radius: 14px;
+      padding: 14px 12px;
+      min-height: 72px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap:6px;
+      overflow:hidden;
+    }
+    .expr{
+      color: var(--muted);
+      font-size: 14px;
+      text-align:right;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .out{
+      font-size: 26px;
+      font-weight: 800;
+      text-align:right;
+      letter-spacing: .3px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+    .status{
+      margin-top:10px;
+      font-size:12px;
+      color:var(--muted);
+      min-height:16px;
+      text-align:right;
+    }
+
+    .keys{
+      padding:18px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap:10px;
+    }
+    button{
+      border:none;
+      border-radius: 14px;
+      padding: 14px 10px;
+      cursor:pointer;
+      font-weight:800;
+      font-size:16px;
+      color: var(--text);
+      background: rgba(255,255,255,.06);
+      border:1px solid rgba(38,50,74,.9);
+      transition: transform .08s ease, filter .15s ease;
+      user-select:none;
+    }
+    button:active{transform: translateY(1px)}
+    .opBtn{
+      background: rgba(96,165,250,.12);
+      border-color: rgba(96,165,250,.35);
+    }
+    .danger{
+      background: rgba(239,68,68,.12);
+      border-color: rgba(239,68,68,.35);
+    }
+    .eq{
+      background: linear-gradient(135deg, var(--eq), #16a34a);
+      color:#052012;
+      border: none;
+    }
+    .wide{
+      grid-column: span 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="calc">
+    <div class="top">
+      <div class="brand">
+        <span>Flask + AJAX</span>
+        <span>Safe calculator</span>
+      </div>
+
+      <div class="display">
+        <div class="expr" id="exprLine"> </div>
+        <div class="out" id="outLine">0</div>
+      </div>
+
+      <div class="status" id="statusLine"></div>
+    </div>
+
+    <div class="keys">
+      <button class="danger" data-action="clear">C</button>
+      <button data-action="del">DEL</button>
+      <button class="opBtn" data-value="(">(</button>
+      <button class="opBtn" data-value=")">)</button>
+
+      <button data-value="7">7</button>
+      <button data-value="8">8</button>
+      <button data-value="9">9</button>
+      <button class="opBtn" data-value="/">÷</button>
+
+      <button data-value="4">4</button>
+      <button data-value="5">5</button>
+      <button data-value="6">6</button>
+      <button class="opBtn" data-value="*">×</button>
+
+      <button data-value="1">1</button>
+      <button data-value="2">2</button>
+      <button data-value="3">3</button>
+      <button class="opBtn" data-value="-">−</button>
+
+      <button class="wide" data-value="0">0</button>
+      <button data-value=".">.</button>
+      <button class="opBtn" data-value="+">+</button>
+
+      <button class="eq wide" data-action="equals">=</button>
+    </div>
+  </div>
+
+  <script>
+    const exprLine = document.getElementById("exprLine");
+    const outLine = document.getElementById("outLine");
+    const statusLine = document.getElementById("statusLine");
+
+    let expr = "";      // expression being built
+    let shown = "0";    // what display shows (result)
+
+    function render() {
+      exprLine.textContent = expr || " ";
+      outLine.textContent = shown;
+    }
+
+    function setStatus(msg) {
+      statusLine.textContent = msg || "";
+    }
+
+    function appendVal(v) {
+      setStatus("");
+      // simple guard: prevent starting with operator except '-' and '('
+      if (!expr && "+*/".includes(v)) return;
+      expr += v;
+      shown = expr; // show current typing
+      render();
+    }
+
+    function clearAll() {
+      expr = "";
+      shown = "0";
+      setStatus("");
+      render();
+    }
+
+    function delOne() {
+      setStatus("");
+      expr = expr.slice(0, -1);
+      shown = expr || "0";
+      render();
+    }
+
+    async function doEquals() {
+      if (!expr.trim()) return;
+
+      setStatus("Calculating...");
+      try {
+        const res = await fetch("/calculate", {
+          method: "POST",
+          headers: {"Content-Type":"application/json"},
+          body: JSON.stringify({ expr })
+        });
+
+        const data = await res.json();
+
+        if (!res.ok || !data.ok) {
+          setStatus(data.error || "Error");
+          return;
+        }
+
+        shown = String(data.result);
+        // After result, set expr to result so user can continue like real calc
+        expr = shown;
+        setStatus("Done");
+        render();
+      } catch (e) {
+        setStatus("Server not reachable");
+      }
+    }
+
+    document.querySelector(".keys").addEventListener("click", (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+
+      const action = btn.dataset.action;
+      const value = btn.dataset.value;
+
+      if (action === "clear") return clearAll();
+      if (action === "del") return delOne();
+      if (action === "equals") return doEquals();
+      if (value) return appendVal(value);
+    });
+
+    // optional: keyboard support
+    document.addEventListener("keydown", (e) => {
+      const k = e.key;
+      if ((k >= "0" && k <= "9") || "+-*/().".includes(k)) appendVal(k);
+      else if (k === "Backspace") delOne();
+      else if (k === "Escape") clearAll();
+      else if (k === "Enter" || k === "=") doEquals();
+    });
+
+    render();
+  </script>
+</body>
+</html>

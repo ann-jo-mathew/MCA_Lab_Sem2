@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Student</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .box { max-width: 420px; }
+        input { width: 100%; padding: 8px; margin-bottom: 8px; }
+        .error { color: #d00; font-size: 14px; }
+        .ok { color: #080; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h2>Add Student</h2>
+
+        {% if success %}
+            <p class="ok">{{ success }}</p>
+        {% endif %}
+
+        {% if errors.general %}
+            <p class="error">{{ errors.general }}</p>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+
+            <label>Name</label>
+            <input type="text" name="name" value="{{ data.name|default:'' }}">
+            {% if errors.name %}<p class="error">{{ errors.name }}</p>{% endif %}
+
+            <label>Age</label>
+            <input type="text" name="age" value="{{ data.age|default:'' }}">
+            {% if errors.age %}<p class="error">{{ errors.age }}</p>{% endif %}
+
+            <label>Email</label>
+            <input type="text" name="email" value="{{ data.email|default:'' }}">
+            {% if errors.email %}<p class="error">{{ errors.email }}</p>{% endif %}
+
+            <button type="submit">Save</button>
+        </form>
+    </div>
+</body>
+</html>

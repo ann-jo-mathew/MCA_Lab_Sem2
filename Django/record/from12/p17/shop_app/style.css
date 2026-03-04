@@ -1,0 +1,9 @@
+body { background: #f5f7fb; }
+.topbar { background: #fff; border-bottom: 1px solid #e9ecef; }
+.brand { font-weight: 700; }
+.muted { color: #6c757d; }
+
+md-elevated-card { display: block; border-radius: 16px; }
+.card-pad { padding: 16px; }
+
+.badge-role { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: #e9ecef; }

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>City Weather App</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .box { max-width: 520px; padding: 16px; border: 1px solid #ccc; border-radius: 10px; }
+    input { width: 70%; padding: 10px; }
+    button { padding: 10px 14px; cursor: pointer; }
+    .result { margin-top: 16px; padding: 12px; border-radius: 10px; background: #f6f6f6; }
+    .error { color: #b00020; margin-top: 10px; }
+    .row { margin: 6px 0; }
+    .label { font-weight: bold; }
+  </style>
+</head>
+<body>
+
+  <h2>Weather Finder (City)</h2>
+
+  <div class="box">
+    <input id="cityInput" type="text" placeholder="Enter city name (e.g., Kochi)" />
+    <button id="btn">Get Weather</button>
+
+    <div id="msg" class="error"></div>
+
+    <div id="output" class="result" style="display:none;">
+      <div class="row"><span class="label">City:</span> <span id="cityOut"></span></div>
+      <div class="row"><span class="label">Temperature:</span> <span id="tempOut"></span></div>
+      <div class="row"><span class="label">Condition:</span> <span id="condOut"></span></div>
+      <div class="row"><span class="label">Humidity:</span> <span id="humOut"></span></div>
+      <div class="row"><span class="label">Wind Speed:</span> <span id="windOut"></span></div>
+    </div>
+  </div>
+
+  <script>
+    const cityInput = document.getElementById("cityInput");
+    const btn = document.getElementById("btn");
+    const msg = document.getElementById("msg");
+    const output = document.getElementById("output");
+
+    const cityOut = document.getElementById("cityOut");
+    const tempOut = document.getElementById("tempOut");
+    const condOut = document.getElementById("condOut");
+    const humOut = document.getElementById("humOut");
+    const windOut = document.getElementById("windOut");
+
+    // Convert Open-Meteo weather code to a readable condition
+    function weatherCodeToText(code) {
+      const map = {
+        0: "Clear sky",
+        1: "Mainly clear",
+        2: "Partly cloudy",
+        3: "Overcast",
+        45: "Fog",
+        48: "Depositing rime fog",
+        51: "Light drizzle",
+        53: "Moderate drizzle",
+        55: "Dense drizzle",
+        56: "Freezing drizzle (light)",
+        57: "Freezing drizzle (dense)",
+        61: "Slight rain",
+        63: "Moderate rain",
+        65: "Heavy rain",
+        66: "Freezing rain (light)",
+        67: "Freezing rain (heavy)",
+        71: "Slight snow fall",
+        73: "Moderate snow fall",
+        75: "Heavy snow fall",
+        77: "Snow grains",
+        80: "Rain showers (slight)",
+        81: "Rain showers (moderate)",
+        82: "Rain showers (violent)",
+        85: "Snow showers (slight)",
+        86: "Snow showers (heavy)",
+        95: "Thunderstorm",
+        96: "Thunderstorm with slight hail",
+        99: "Thunderstorm with heavy hail"
+      };
+      return map[code] ?? "Unknown";
+    }
+
+    async function getWeather() {
+      msg.textContent = "";
+      output.style.display = "none";
+
+      const city = cityInput.value.trim();
+      if (!city) {
+        msg.textContent = "Enter a city name.";
+        return;
+      }
+
+      try {
+        // 1) Geocoding: city -> latitude/longitude
+        const geoUrl = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(city)}&count=1`;
+        const geoRes = await fetch(geoUrl);
+        if (!geoRes.ok) throw new Error("Geocoding request failed.");
+
+        const geoData = await geoRes.json();
+        if (!geoData.results || geoData.results.length === 0) {
+          msg.textContent = "City not found. Try another name.";
+          return;
+        }
+
+        const place = geoData.results[0];
+        const lat = place.latitude;
+        const lon = place.longitude;
+
+        // 2) Weather: fetch current weather + humidity + wind
+        // current=temperature_2m, relative_humidity_2m, weather_code, wind_speed_10m
+        const weatherUrl =
+          `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+          `&current=temperature_2m,relative_humidity_2m,weather_code,wind_speed_10m` +
+          `&timezone=auto`;
+
+        const wRes = await fetch(weatherUrl);
+        if (!wRes.ok) throw new Error("Weather request failed.");
+
+        const wData = await wRes.json();
+
+        // 3) Process JSON and display
+        const cur = wData.current;
+
+        cityOut.textContent = `${place.name}${place.country ? ", " + place.country : ""}`;
+        tempOut.textContent = `${cur.temperature_2m} ${wData.current_units.temperature_2m}`;
+        condOut.textContent = weatherCodeToText(cur.weather_code);
+        humOut.textContent = `${cur.relative_humidity_2m} ${wData.current_units.relative_humidity_2m}`;
+        windOut.textContent = `${cur.wind_speed_10m} ${wData.current_units.wind_speed_10m}`;
+
+        output.style.display = "block";
+      } catch (err) {
+        msg.textContent = "Error: " + err.message;
+      }
+    }
+
+    btn.addEventListener("click", getWeather);
+    cityInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") getWeather();
+    });
+  </script>
+</body>
+</html>
