@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Image Slideshow</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #f4f6f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    /* CSS GRID CONTAINER */
+    .slideshow {
+        display: grid;
+        grid-template-rows: auto 50px;
+        width: 400px;
+        background: white;
+        padding: 15px;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    img {
+        width: 100%;
+        height: 250px;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+
+    /* BUTTON AREA */
+    .controls {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 10px;
+    }
+
+    button {
+        padding: 10px;
+        border: none;
+        background: #4f46e5;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #3730a3;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="slideshow">
+    <img id="slide" src="https://via.placeholder.com/400x250?text=Image+1">
+
+    <div class="controls">
+        <button onclick="prevSlide()">Previous</button>
+        <button onclick="nextSlide()">Next</button>
+    </div>
+</div>
+
+<script>
+    let images = [
+        "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg",
+        "https://images.pexels.com/photos/4587993/pexels-photo-4587993.jpeg",
+        "https://images.pexels.com/photos/1805164/pexels-photo-1805164.jpeg",
+        "https://images.pexels.com/photos/4587991/pexels-photo-4587991.jpeg",
+        "https://images.pexels.com/photos/4587999/pexels-photo-4587999.jpeg",
+        "https://images.pexels.com/photos/4588002/pexels-photo-4588002.jpeg"
+    ];
+
+
+    let index = 0;
+
+    function nextSlide() {
+        index = (index + 1) % images.length;
+        document.getElementById("slide").src = images[index];
+    }
+
+    function prevSlide() {
+        index = (index - 1 + images.length) % images.length;
+        document.getElementById("slide").src = images[index];
+    }
+</script>
+
+</body>
+</html>

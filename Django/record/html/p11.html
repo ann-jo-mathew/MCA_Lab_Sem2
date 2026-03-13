@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Student Details (JSON)</title>
+<style>
+    body {
+        font-family: Arial;
+        text-align: center;
+        padding: 40px;
+    }
+</style>
+</head>
+<body>
+<h2>Student Details</h2>
+<div id="output"></div>
+<script>
+    let studentJSON = `{
+        "name": "Ann Jo Mathew",
+        "age": 22,
+        "grade": "A"
+    }`;
+    let student = JSON.parse(studentJSON);
+    document.getElementById("output").innerHTML =
+        "Name: " + student.name + "<br>" +
+        "Age: " + student.age + "<br>" +
+        "Grade: " + student.grade;
+</script>
+
+</body>
+</html>

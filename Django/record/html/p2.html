@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>CSS Animations & Transitions</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: #f4f6f8;
+                text-align: center;
+                padding: 40px;
+            }
+
+            h1 {
+                margin-bottom: 30px;
+            }
+            .card {
+                width: 250px;
+                margin: 20px auto;
+                padding: 20px;
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+                transition: transform 0.4s ease, box-shadow 0.4s ease;
+            }
+
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            }
+            button {
+                padding: 12px 25px;
+                border: none;
+                background: #4f46e5;
+                color: white;
+                border-radius: 25px;
+                cursor: pointer;
+                font-size: 16px;
+                transition: background 0.3s ease, transform 0.3s ease;
+            }
+
+            button:hover {
+                background: #3730a3;
+                transform: scale(1.05);
+            }
+            .circle {
+                width: 80px;
+                height: 80px;
+                background: #22c55e;
+                border-radius: 50%;
+                margin: 40px auto;
+
+                animation: bounce 2s infinite;
+            }
+            @keyframes bounce {
+                0% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-30px);
+                }
+                100% {
+                    transform: translateY(0);
+                }
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <h1>CSS Animations & Transitions</h1>
+
+        <div class="card">
+            <h3>Hover Card</h3>
+            <p>Moves up smoothly when hovered.</p>
+        </div>
+
+        <button>Hover Me</button>
+
+        <div class="circle"></div>
+
+    </body>
+</html>

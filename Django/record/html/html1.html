@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basics HTML</title>
+    <style>/*<link rel="stylesheet" href="style.css" />*/
+        *{/*remove browsers default style(NORMALIZE)*/
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;/*fix layout*/
+        }
+        /* body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;/*line spacing*/
+            /*background: #f5f5f5;
+            color: #222; /*font color*/
+        /*} */
+        body {
+            min-height: 100vh;      /* Full screen height */
+            display: flex;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background: #f5f5f5;
+            color: #222;
+        }
+
+        header {
+            background: #5f7aa3;
+            color: white;
+            padding: 24px 16px;
+            text-align: center;
+        }
+        nav {
+            background: #476391;
+            padding: 10px 16px;
+            /* Make links sit in a row and wrap on small screens */
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        /**************/
+        main {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 16px;
+            /* Desktop layout: content + sidebar */
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            flex: 1;   /* Takes remaining space */  
+        }
+
+        /* 6) Services section */
+        section {
+            background: white;
+            padding: 16px;
+            border-radius: 10px;
+        }
+
+        /* Articles as cards */
+        article {
+            background: #f0f6ff;
+            padding: 14px;
+            border-radius: 10px;
+            margin-top: 12px;
+        }
+
+        /* 7) Sidebar */
+        aside {
+            background: white;
+            padding: 16px;
+            border-radius: 10px;
+        }
+
+        /* 8) Footer */
+        footer {
+            margin-top: 20px;
+            background: #111;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+        }
+        /* 9) Responsive part (mobile) */
+        @media (max-width: 768px) {
+            main {
+                /* Switch to single column on small screens */
+                grid-template-columns: 1fr;
+            }
+
+            header {
+                padding: 18px 12px;
+            }
+            nav {
+                gap: 12px;
+                padding: 8px 12px;
+            }
+            nav a {
+                padding: 6px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header><!--Title,logo,menu-->
+        <h1>My site</h1>
+        <p>A site with simple responsive design HTML and css only</p>
+    </header>
+    <nav><!--nav bar-->
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#blog">Blog</a>
+    </nav>
+    <main><!--main content can have only one main tag(no sidebar or footer)-->
+        <section id="about"><!--group of related content-->
+            <h2>About Us</h2>
+            <article><!--sub division for section the section may have different topics that come under it-->
+                <h3>Our Mission</h3>
+                <p>Our mission is to provide high-quality content and resources to our users.</p>
+            </article>
+            <article>
+                <h3>Our Team</h3>
+                <p>We have a dedicated team of professionals who are passionate about delivering the best experience to our users.</p>
+            </article>
+        </section>
+        <aside><!--side bar-->
+            <h2>To know more about us use the following links:</h2>
+            <ul>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </aside>
+    </main>
+    <footer><!--footer-->
+        <p>&copy; 2024 My Site. All rights reserved.</p>
+    </footer>
+</body>
+</html>

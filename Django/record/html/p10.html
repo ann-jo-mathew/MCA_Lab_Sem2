@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dropdown Content Rendering</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        padding: 40px;
+        text-align: center;
+    }
+
+    select {
+        padding: 8px;
+        margin-bottom: 20px;
+    }
+
+    .content-box {
+        width: 300px;
+        margin: auto;
+        padding: 20px;
+        background: #f4f4f4;
+        border-radius: 8px;
+    }
+</style>
+</head>
+
+<body>
+
+<h2>Select a Course</h2>
+
+<select id="course" onchange="showContent()">
+    <option value="">-- Select Course --</option>
+    <option value="html">HTML</option>
+    <option value="css">CSS</option>
+    <option value="js">JavaScript</option>
+</select>
+
+<div class="content-box" id="content">
+    Please select a course to see details.
+</div>
+
+<script>
+function showContent() {
+    let value = document.getElementById("course").value;
+    let contentBox = document.getElementById("content");
+
+    if (value === "html") {
+        contentBox.innerHTML = "HTML is used to structure web pages.";
+    } 
+    else if (value === "css") {
+        contentBox.innerHTML = "CSS is used to style web pages.";
+    } 
+    else if (value === "js") {
+        contentBox.innerHTML = "JavaScript is used to make web pages interactive.";
+    } 
+    else {
+        contentBox.innerHTML = "Please select a course to see details.";
+    }
+}
+</script>
+
+</body>
+</html>
